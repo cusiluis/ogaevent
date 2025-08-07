@@ -1,6 +1,4 @@
 <?php
-// routes/web.php
-
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventoController;
@@ -12,6 +10,9 @@ use App\Http\Controllers\CodigoController;
 use App\Http\Controllers\CodigoAsociadoController;
 use App\Http\Controllers\AsignacionController;
 use App\Http\Controllers\RolPermisoController;
+
+use App\Http\Controllers\Auth\AsociadoAuthController;
+use App\Http\Controllers\asociado\AsociadoDashboardController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,23 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+
+
+Route::prefix('asociado')->name('asociado.')->group(function () {
+    Route::get('login', [AsociadoAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AsociadoAuthController::class, 'login'])->name('login.submit');
+    Route::post('logout', [AsociadoAuthController::class, 'logout'])->name('logout');
+
+    Route::middleware(['auth:asociado'])->group(function () {
+        Route::get('/dashboard', [AsociadoDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/eventos/{evento}/invitados/crear', [InvitadoController::class, 'create'])->name('invitados.create');
+        Route::post('/eventos/{evento}/invitados', [InvitadoController::class, 'store'])->name('invitados.store');
+    });
+});
+
+
+
 
 // Rutas protegidas
 Route::middleware('auth')->group(function () {

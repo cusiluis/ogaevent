@@ -41,6 +41,11 @@
         <div class="mb-3">
             <label for="regional" class="form-label">Regional *</label>
             <input type="text" name="regional" class="form-control" required value="{{ old('regional') }}">
+        </div>     
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password *</label>
+            <input type="text" name="password" class="form-control" required value="{{ old('password') }}">
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar</button>

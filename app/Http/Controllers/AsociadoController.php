@@ -22,15 +22,17 @@ class AsociadoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|unique:asociados,email',
             'telefono' => 'nullable|string|max:20',
             'cargo' => 'nullable|string|max:100',
             'regional' => 'nullable|string|max:100',
         ]);
+    
+        $validated['password'] = Hash::make('password123');
 
-        Asociado::create($request->all());
+        Asociado::create($validated);
 
         return redirect()->route('asociados.index')->with('success', 'Asociado creado correctamente.');
     }
@@ -51,15 +53,17 @@ class AsociadoController extends Controller
 
     public function update(Request $request, Asociado $asociado)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|unique:asociados,email,' . $asociado->id,
             'telefono' => 'nullable|string|max:20',
             'cargo' => 'nullable|string|max:100',
             'regional' => 'nullable|string|max:100',
         ]);
+    
+        $validated['password'] = Hash::make('password123');
 
-        $asociado->update($request->all());
+        $asociado->update($validated);
 
         return redirect()->route('asociados.index')->with('success', 'Asociado actualizado correctamente.');
     }

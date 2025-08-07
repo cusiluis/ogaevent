@@ -1,6 +1,4 @@
 <?php
-// config/auth.php - Actualizar configuración
-
 return [
     'defaults' => [
         'guard' => 'web',
@@ -12,6 +10,11 @@ return [
             'driver' => 'session',
             'provider' => 'usuarios',
         ],
+        'asociado' => [
+            'driver' => 'session',
+            'provider' => 'asociados',
+        ],
+        
     ],
 
     'providers' => [
@@ -19,6 +22,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Usuario::class,
         ],
+        'asociados' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Asociado::class,
+        ],
+
     ],
 
     'passwords' => [

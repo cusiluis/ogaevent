@@ -45,6 +45,11 @@
             <input type="text" name="regional" class="form-control" required value="{{ old('regional', $asociado->regional) }}">
         </div>
 
+        <div class="mb-3">
+            <label for="password" class="form-label">Password *</label>
+            <input type="text" name="password" class="form-control" required value="{{ old('password', $asociado->password) }}">
+        </div>
+
         <button type="submit" class="btn btn-success">Actualizar</button>
         <a href="{{ route('asociados.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>

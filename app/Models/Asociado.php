@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Asociado extends Model
+class Asociado extends Authenticatable
 {
     protected $table = 'asociados';
 
@@ -16,7 +16,20 @@ class Asociado extends Model
         'email',
         'cargo',
         'regional',
+        'password',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+
+    public function isAdmin()
+    {
+        return $this->rol === 'admin';
+    }
+
 
     public function codigos()
     {
