@@ -47,6 +47,38 @@ class Usuario extends Authenticatable
         return $this->rol === $role;
     }
 
+
+
+
+    
+
+    public function roles() {
+        return $this->belongsToMany(
+            Roles::class,
+            'rol_usuario',    // tabla pivote
+            'usuario_id',     // FK de esta tabla en pivote
+            'rol_id'          // FK del modelo relacionado en pivote
+        );
+    }
+
+    // public function hasRol($slug) {
+    //     return $this->roles->contains('slug', $slug);
+    // }
+
+    // public function hasPermiso($slug) {
+    //     foreach ($this->roles as $role) {
+    //         if ($role->permisos->contains('slug', $slug)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+
+
+
+
+
     public function eventosCreados(): HasMany
     {
         return $this->hasMany(Evento::class, 'created_by');

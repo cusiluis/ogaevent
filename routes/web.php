@@ -11,6 +11,7 @@ use App\Http\Controllers\AsociadoController;
 use App\Http\Controllers\CodigoController;
 use App\Http\Controllers\CodigoAsociadoController;
 use App\Http\Controllers\AsignacionController;
+use App\Http\Controllers\RolPermisoController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -55,18 +56,15 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
     // Rutas de invitados
     Route::resource('invitados', InvitadoController::class);
 
 
 
-    // Rutas CRUD principales
+    // Rutas asociados
     Route::resource('asociados', AsociadoController::class);
 
     Route::get('/buscar-asociado-por-codigo/{codigo}', [AsociadoController::class, 'buscarAsociadoPorCodigo']);
-
 
 
     // Asignación de manillas a asociados por evento
@@ -75,8 +73,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('eventos/{evento}/resumen', [EventoController::class, 'resumen'])->name('eventos.resumen');
     Route::get('eventos/{evento}/resumen-estadistica', [EventoController::class, 'resumenEstadistica'])->name('eventos.resumen-estadistica');
-
-
 
 
     // Codigos y asignacion de codigo
@@ -94,6 +90,33 @@ Route::middleware('auth')->group(function () {
         return response()->json($resultados);
     });
     
+
+
+
+    Route::prefix('roles')->name('roles.')->group(function () {
+        Route::get('/', [RolPermisoController::class, 'indexRoles'])->name('index');
+        Route::get('/create', [RolPermisoController::class, 'createRole'])->name('create');
+        Route::post('/', [RolPermisoController::class, 'storeRole'])->name('store');
+        Route::get('/{role}/edit', [RolPermisoController::class, 'editRole'])->name('edit');
+        Route::put('/{role}', [RolPermisoController::class, 'updateRole'])->name('update');
+        Route::delete('/{role}', [RolPermisoController::class, 'destroyRole'])->name('destroy');
+        Route::get('/assign', [RolPermisoController::class, 'assignRoleForm'])->name('assign');
+        Route::post('/assign', [RolPermisoController::class, 'assignRole'])->name('assign.store');
+    });
+
+    
+    Route::prefix('permisos')->name('permisos.')->group(function () {
+        Route::get('/', [RolPermisoController::class, 'indexPermissions'])->name('index');
+        Route::post('/', [RolPermisoController::class, 'storePermission'])->name('store');
+    });
+    
+
+
+
+
+
+
+
     // Rutas solo para administradores
     Route::middleware('role:admin')->group(function () {
         Route::resource('usuarios', UsuarioController::class);

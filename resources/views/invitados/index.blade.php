@@ -1,4 +1,3 @@
-{{-- resources/views/invitados/index.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Invitados')
@@ -8,7 +7,7 @@
     <h1>Invitados</h1>
     <a href="{{ route('invitados.create') }}" class="btn btn-primary">Crear Invitado</a>
 </div>
-
+<?php //echo "<pre>"; print_r($invitados); ?>
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>

@@ -24,6 +24,7 @@
                     <a class="nav-link" href="{{ route('invitados.index') }}">Invitados</a>
                     @if(auth()->user()->isAdmin())
                         <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a>
+                        <a class="nav-link" href="{{ route('asociados.index') }}">Asociados</a>
                     @endif
                 </div>
                 
